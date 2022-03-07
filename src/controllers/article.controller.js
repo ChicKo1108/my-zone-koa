@@ -34,7 +34,6 @@ class ArticleController {
 
   async updateArticle(ctx) {
     try {
-      console.log(ctx.request.body);
       const { id, title, content, intro } = ctx.request.body;
       if (!(title || content || intro)) {
         throw new Error('param lost!');
@@ -43,6 +42,18 @@ class ArticleController {
         throw new Error('param lost!');
       }
       ctx.success(await ArticleService.getInstance().postArticle(id, { title, content, intro }));
+    } catch (error) {
+      ctx.fail(error.message);
+    }
+  }
+
+  async addView(ctx) {
+    try {
+      const { id } = ctx.request.body;
+      if (!id) {
+        throw new Error('param lost!');
+      }
+      ctx.success(await ArticleService.getInstance().addView(id));
     } catch (error) {
       ctx.fail(error.message);
     }

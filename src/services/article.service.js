@@ -20,8 +20,8 @@ class ArticleService {
     return query(sql);
   }
 
-  updateArticle(id, { title, content, category, intro }) {
-    const article = new Article({ title, content, category, intro });
+  updateArticle(id, { title, content, category, intro, view, like }) {
+    const article = new Article({ title, content, category, intro, view, like });
     return update('article', article, { id });
   }
 
@@ -45,6 +45,12 @@ class ArticleService {
         return this.createArticle(article);
       }
     }
+  }
+
+  async addView(id) {
+    const article = await this.findArticleById(id);
+    console.log(article);
+    return this.updateArticle(id, { view: article[0].view + 1 })
   }
 
 }

@@ -16,6 +16,11 @@ const routes = [
     method: 'post',
     route: '',
     handler: ArticleController.getInstance().updateArticle,
+  },
+  {
+    method: 'post',
+    route: '/view',
+    handler: ArticleController.getInstance().addView,
   }
 ];
 
