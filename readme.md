@@ -22,8 +22,8 @@
   - /baseInfo : GET 获取基本信息
   - /view: POST 记录网站UV （未完成）
 - /article
-  - / : POST 新增/修改文章 （未完成）
-  - / : GET 获取某一篇文章 （未完成）
-  - /all : GET 获取文章列表 （未完成）
+  - / : POST 新增/修改文章 
+  - / : GET 获取某一篇文章 
+  - /all : GET 获取文章列表 
   - /view : POST 增加某一篇文章的浏览量 （未完成）
   - /like : POST 给某一篇文章点赞/取消赞 （未完成）

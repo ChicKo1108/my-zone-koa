@@ -10,7 +10,18 @@ db.connect(err => {
   console.log(`[database] connection success!`);
 })
 
-let query = function (sql, values) {
+function filterEntity(entity) {
+  const filterEntity = {}
+  for (const key in entity) {
+    if (Object.hasOwnProperty.call(entity, key)) {
+      const value = entity[key];
+      if (value) filterEntity[key] = value;
+    }
+  }
+  return filterEntity;
+}
+
+let query = function (sql) {
   return new Promise((resolve, reject) => {
     db.query(sql, (err, result) => {
       if (err) {
@@ -22,4 +33,24 @@ let query = function (sql, values) {
   });
 }
 
-module.exports = { query }
+let update = function (table, entity, conditions) {
+  const e = filterEntity(entity);
+  const sql = `
+    UPDATE ${table}
+    SET ${Object.keys(e).map(key => `${key}='${e[key]}'`).join(', ')}
+    WHERE ${Object.keys(conditions).map(key => `${key}='${conditions[key]}'`).join(' AND ')}
+  `;
+  return query(sql);
+}
+
+let create = function(table, entity) {
+  const e = filterEntity(entity);
+  const sql = `
+    INSERT INTO ${table}
+    (${Object.keys(e).join(', ')})
+    VALUES (${Object.keys(e).map(key => `'${e[key]}'`).join(', ')})
+  `;
+  return query(sql);
+}
+
+module.exports = { query, update, create }

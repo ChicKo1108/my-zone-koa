@@ -19,6 +19,34 @@ class ArticleController {
       list: await ArticleService.getInstance().getAll()
     })
   }
+
+  async findArticleById(ctx) {
+    try {
+      const { id } = ctx.query;
+      if (!id) {
+        throw new Error('`id` is not defined!');
+      }
+      ctx.success(await ArticleService.getInstance().findArticleById(id));
+    } catch (error) {
+      ctx.fail(error.message);
+    }
+  }
+
+  async updateArticle(ctx) {
+    try {
+      console.log(ctx.request.body);
+      const { id, title, content, intro } = ctx.request.body;
+      if (!(title || content || intro)) {
+        throw new Error('param lost!');
+      }
+      if (!id && !(title && content && intro)) {
+        throw new Error('param lost!');
+      }
+      ctx.success(await ArticleService.getInstance().postArticle(id, { title, content, intro }));
+    } catch (error) {
+      ctx.fail(error.message);
+    }
+  }
 }
 
 
