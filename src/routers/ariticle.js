@@ -32,6 +32,16 @@ const routes = [
     route: '/dislike',
     handler: ArticleController.getInstance().dislike,
   },
+  {
+    method: 'post',
+    route: '/comment',
+    handler: ArticleController.getInstance().addComment,
+  },
+  {
+    method: 'get',
+    route: '/comment',
+    handler: ArticleController.getInstance().getComments,
+  },
 ];
 
 

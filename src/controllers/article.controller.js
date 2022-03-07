@@ -15,9 +15,7 @@ class ArticleController {
   }
   
   async getAll(ctx) {
-    ctx.success({
-      list: await ArticleService.getInstance().getAll()
-    })
+    ctx.success(await ArticleService.getInstance().getAll());
   }
 
   async findArticleById(ctx) {
@@ -78,6 +76,30 @@ class ArticleController {
         throw new Error('param lost!');
       }
       ctx.success(await ArticleService.getInstance().dislike(id));
+    } catch (error) {
+      ctx.fail(error.message);
+    }
+  }
+
+  async addComment(ctx) {
+    try {
+      const { articleId, username, content, replyId } = ctx.request.body;
+      if (!articleId || !username || !content) {
+        throw new Error('param lost');
+      }
+      ctx.success(await ArticleService.getInstance().addComment({ articleId, username, content, replyId }));
+    } catch (error) {
+      ctx.fail(error.message);
+    }
+  }
+
+  async getComments(ctx) {
+    try {
+      const { articleId: id } = ctx.query;
+      if (!id) {
+        throw new Error('param lost');
+      }
+      ctx.success(await ArticleService.getInstance().getComments(id));
     } catch (error) {
       ctx.fail(error.message);
     }

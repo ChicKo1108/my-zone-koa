@@ -1,5 +1,6 @@
 const { query, update, create } = require('../utils/mysql');
 const Article = require('../entities/article.entity');
+const Comment = require('../entities/comment.entity');
 
 class ArticleService {
   constructor() {
@@ -16,7 +17,7 @@ class ArticleService {
   }
 
   getAll() {
-    let sql = 'SELECT title, intro, content, view, like FROM article';
+    let sql = 'SELECT * FROM article';
     return query(sql);
   }
 
@@ -63,6 +64,19 @@ class ArticleService {
       return false;
     }
     return this.updateArticle(id, { like: article[0].like - 1 });
+  }
+
+  async getComments(id) {
+    return query(`select * from comment where articleId = ${id} order by createdAt DESC`);
+  }
+
+  async addComment({ username, content, articleId, replyId }) {
+    const article = await this.findArticleById(articleId);
+    if (!article || !article.length) {
+      throw new Error('未找到相关文章.');
+    }
+    const comment = new Comment({ username, content, articleId, replyId });
+    return create('comment', comment);
   }
 
 }

@@ -28,3 +28,5 @@
   - /view : POST 增加某一篇文章的浏览量
   - /like : POST 给某一篇文章点赞
   - /dislike : POST 给某一篇文章取消赞
+  - /comment : GET 获取文章的全部评论
+  - /comment : POST 增加评论
