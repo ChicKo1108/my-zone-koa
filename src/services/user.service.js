@@ -23,6 +23,13 @@ class UserService {
     return query(sql);
   }
 
+  async addView() {
+    const sql = `select view from user where id = 1`;
+    const res = await query(sql);
+    const res2 = await query(`update user set view = ${res[0].view + 1} where id = 1`);
+    return !!res2.affectedRows;
+  }
+
 }
 
 module.exports = UserService;

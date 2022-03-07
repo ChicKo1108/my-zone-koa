@@ -19,6 +19,15 @@ class UserController {
       data: await UserService.getInstance().getBaseInfo(),
     })
   }
+
+  async addView(ctx) {
+    try {
+      const data = await UserService.getInstance().addView();
+      ctx.success(data);
+    } catch (error) {
+      ctx.fail(error.message);
+    }
+  }
 }
 
 
