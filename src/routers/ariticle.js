@@ -5,7 +5,7 @@ const routes = [
   {
     method: 'get',
     route: '/all',
-    handler: ArticleController.getAll,
+    handler: ArticleController.getInstance().getAll,
   }
 ];
 

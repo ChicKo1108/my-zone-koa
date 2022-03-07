@@ -1,10 +1,22 @@
 const { query } = require('../utils/mysql');
 
 class ArticleService {
-  
-  static async getAll() {
-    let sql = 'SELECT * FROM `10MillionZone`.article';
-    return await query(sql);
+  constructor() {
+    this.name = 'Article';
+    this.instance = null;
+    console.log(`[service] ${this.name} has been inited!`);
+  }
+
+  static getInstance() {
+    if (!this.instance) {
+      this.instance = new ArticleService();
+    }
+    return this.instance;
+  }
+
+  getAll() {
+    let sql = 'SELECT * FROM article';
+    return query(sql);
   }
 
 }
