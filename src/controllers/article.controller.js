@@ -58,6 +58,30 @@ class ArticleController {
       ctx.fail(error.message);
     }
   }
+
+  async like(ctx) {
+    try {
+      const { id } = ctx.request.body;
+      if (!id) {
+        throw new Error('param lost!');
+      }
+      ctx.success(await ArticleService.getInstance().like(id));
+    } catch (error) {
+      ctx.fail(error.message);
+    }
+  }
+
+  async dislike(ctx) {
+    try {
+      const { id } = ctx.request.body;
+      if (!id) {
+        throw new Error('param lost!');
+      }
+      ctx.success(await ArticleService.getInstance().dislike(id));
+    } catch (error) {
+      ctx.fail(error.message);
+    }
+  }
 }
 
 

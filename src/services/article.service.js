@@ -49,8 +49,20 @@ class ArticleService {
 
   async addView(id) {
     const article = await this.findArticleById(id);
-    console.log(article);
     return this.updateArticle(id, { view: article[0].view + 1 })
+  }
+
+  async like(id) {
+    const article = await this.findArticleById(id);
+    return this.updateArticle(id, { like: article[0].like + 1 });
+  }
+
+  async dislike(id) {
+    const article = await this.findArticleById(id);
+    if (article[0].like === 0) {
+      return false;
+    }
+    return this.updateArticle(id, { like: article[0].like - 1 });
   }
 
 }

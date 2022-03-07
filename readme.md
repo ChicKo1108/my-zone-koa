@@ -25,5 +25,6 @@
   - / : POST 新增/修改文章 
   - / : GET 获取某一篇文章 
   - /all : GET 获取文章列表 
-  - /view : POST 增加某一篇文章的浏览量 （未完成）
-  - /like : POST 给某一篇文章点赞/取消赞 （未完成）
+  - /view : POST 增加某一篇文章的浏览量
+  - /like : POST 给某一篇文章点赞
+  - /dislike : POST 给某一篇文章取消赞

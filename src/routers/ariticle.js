@@ -21,7 +21,17 @@ const routes = [
     method: 'post',
     route: '/view',
     handler: ArticleController.getInstance().addView,
-  }
+  },
+  {
+    method: 'post',
+    route: '/like',
+    handler: ArticleController.getInstance().like,
+  },
+  {
+    method: 'post',
+    route: '/dislike',
+    handler: ArticleController.getInstance().dislike,
+  },
 ];
 
 

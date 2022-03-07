@@ -15,7 +15,7 @@ function filterEntity(entity) {
   for (const key in entity) {
     if (Object.hasOwnProperty.call(entity, key)) {
       const value = entity[key];
-      if (value) filterEntity[key] = value;
+      if (value || value === 0) filterEntity[key] = value;
     }
   }
   return filterEntity;
@@ -37,7 +37,7 @@ let update = function (table, entity, conditions) {
   const e = filterEntity(entity);
   const sql = `
     UPDATE ${table}
-    SET ${Object.keys(e).map(key => `${key}='${e[key]}'`).join(', ')}
+    SET ${Object.keys(e).map(key => `\`${key}\`='${e[key]}'`).join(', ')}
     WHERE ${Object.keys(conditions).map(key => `${key}='${conditions[key]}'`).join(' AND ')}
   `;
   return query(sql);
