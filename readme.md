@@ -20,7 +20,7 @@
 
 - /user
   - /baseInfo : GET 获取基本信息
-  - /view: POST 记录网站UV （未完成）
+  - /view : POST 记录网站UV
 - /article
   - / : POST 新增/修改文章 
   - / : GET 获取某一篇文章 
