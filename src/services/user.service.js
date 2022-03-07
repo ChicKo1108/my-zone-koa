@@ -16,7 +16,7 @@ class UserService {
 
   getBaseInfo() {
     const sql = `
-      select username, birth, avatar, province, jobExp, email, wx, college, major, schoolYear, level, skills, jobs
+      select username, birth, avatar, province, jobExp, email, wx, college, major, schoolYear, level, skills, jobs, nation, view
       from user
       where id = 1
     `;
