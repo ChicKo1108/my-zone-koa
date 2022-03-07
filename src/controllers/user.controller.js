@@ -15,9 +15,11 @@ class UserController {
   }
   
   async getBaseInfo(ctx) {
-    ctx.body = await UserService.getInstance().getBaseInfo();
+    ctx.success({
+      data: await UserService.getInstance().getBaseInfo(),
+    })
   }
 }
 
 
-module.exports = UserController;
+module.exports = UserController;  

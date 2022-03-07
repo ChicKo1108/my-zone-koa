@@ -15,7 +15,9 @@ class ArticleController {
   }
   
   async getAll(ctx) {
-    ctx.body = await ArticleService.getInstance().getAll();
+    ctx.success({
+      list: await ArticleService.getInstance().getAll()
+    })
   }
 }
 
