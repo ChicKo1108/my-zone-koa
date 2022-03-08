@@ -12,6 +12,12 @@ function initRouters(router) {
       registerRoute(router, prefix, route, method, handler);
     });
   });
+  // login
+  console.log(`[router] - post '/login' has been registed.`);
+  router.post('/login', async (ctx) => {
+    ctx.status = 200;
+    ctx.body = 'login success';
+  });
 }
 
 module.exports = {
