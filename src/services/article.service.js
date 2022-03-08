@@ -18,9 +18,9 @@ class ArticleService {
 
   getAll() {
     let sql = `
-      select count(*) as comment, articleId, a.* from comment c 
-      left join article a on a.id = c.articleId 
-      group by articleId 
+      select count(c.id) as comment, articleId, a.* from article a
+      left join comment c on a.id = c.articleId 
+      group by a.id
       order by a.id DESC
     `;
     return query(sql);
@@ -38,11 +38,10 @@ class ArticleService {
 
   findArticleById(id) {
     return query(`
-      select count(*) as commentCount, articleId, a.* from comment c 
-      left join article a on a.id = c.articleId 
+      select count(c.id) as commentCount, articleId, a.* from article a 
+      left join comment c on a.id = c.articleId 
       where a.id = ${id}
-      group by articleId 
-      order by a.id DESC
+      group by a.id 
     `);
   }
 
