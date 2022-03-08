@@ -17,7 +17,12 @@ class ArticleService {
   }
 
   getAll() {
-    let sql = 'SELECT * FROM article';
+    let sql = `
+      select count(*) as comment, articleId, a.* from comment c 
+      left join article a on a.id = c.articleId 
+      group by articleId 
+      order by a.id DESC
+    `;
     return query(sql);
   }
 
@@ -32,7 +37,13 @@ class ArticleService {
   }
 
   findArticleById(id) {
-    return query(`select * from article where id = ${id}`);
+    return query(`
+      select count(*) as commentCount, articleId, a.* from comment c 
+      left join article a on a.id = c.articleId 
+      where a.id = ${id}
+      group by articleId 
+      order by a.id DESC
+    `);
   }
 
   async postArticle(id, article) {
@@ -67,7 +78,7 @@ class ArticleService {
   }
 
   async getComments(id) {
-    return query(`select * from comment where articleId = ${id} order by createdAt DESC`);
+    return query(`select * from comment where articleId = ${id} order by createdAt ASC`);
   }
 
   async addComment({ username, content, articleId, replyId }) {
