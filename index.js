@@ -36,7 +36,7 @@ app.use(async(ctx, next) => {
     '/login',
     '/article',
   ];
-  if (needCheckRoutes.includes(ctx.path) && !ctx.session.logged) {  // 如果登录属性为undefined或者false，对应未登录和登录失败
+  if (needCheckRoutes.includes(ctx.path) && ctx.request.method === 'POST' && !ctx.session.logged) {  // 如果登录属性为undefined或者false，对应未登录和登录失败
     ctx.session.logged = false;
     const { username, password } = ctx.request.body;
     // 判断用户名密码是否为空
